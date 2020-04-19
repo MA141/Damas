@@ -1,17 +1,17 @@
 package all;
 
 public class Board {
-	Pices[][] tabela=new Pices[8][8];
+	Piece[][] tabela=new Piece[8][8];
 	
 	void create(){
 		for (int i=0; i<8; i++){
 			for(int j=0; j<8; j++) {
 				if((i%2==0 && j%2!=0)||(j%2==0 && i%2!=0)) {//se esta na cor preta
 					if(i<3) {
-						tabela[i][j] = new Pices();//cor preta
+						tabela[i][j] = new Piece();//cor preta
 					}
 					if(i>4) {
-						tabela[i][j] = new Pices();//cor branca
+						tabela[i][j] = new Piece();//cor branca
 					}
 				}
 			}

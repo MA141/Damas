@@ -1,6 +1,6 @@
 package all;
 
-public class comum extends Pieces{
+public class comum extends Piece{
 	
 	comum(int team){
 		super(team);

@@ -1,6 +1,6 @@
 package all;
 
-public class dama extends Pieces {
+public class dama extends Piece {
 	
 	dama(int team){
 		super(team);
