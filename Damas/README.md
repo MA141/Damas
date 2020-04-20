@@ -1,2 +1,0 @@
-# Damas
-Laboratório 6
