@@ -1,9 +1,13 @@
 package all;
 
-public class dama extends Piece {
+public class Dama extends Piece {
 	
-	dama(int team){
+	Dama(int team){
 		super(team);
+	}
+	
+	int gtClass() {//0 se piece(vazia), 1 se comum, 2 se dama
+		return 2;
 	}
 	
 	boolean verifComp(String com) {
