@@ -30,10 +30,20 @@ public class Board {
 			System.out.print(8-i+" ");
 			for(int j=0; j<8; j++) {
 				if(tabela[i][j].color==0) {
-					System.out.print("B ");
+					if(tabela[i][j].gtClass()==1) {
+						System.out.print("B ");
+					}
+					else {
+						System.out.print("C ");
+					}
 				}
 				if(tabela[i][j].color==1) {
-					System.out.print("P ");
+					if(tabela[i][j].gtClass()==1) {
+						System.out.print("P ");
+					}
+					else {
+						System.out.print("Q ");
+					}
 				}
 				if(tabela[i][j].color==-1) {
 					System.out.print("- ");
@@ -75,7 +85,7 @@ public class Board {
 			}
 			
 		}
-		return false;//o programa nunca chega aqui, mas precisa desse return pra compilar
+		return true;//o programa CHEGOU aqui
 	}
 	
 	boolean capDama(int[] com) { //verifica se a peça dama nao deixou de capturar nada -> true==deixou de capturar;
@@ -86,11 +96,14 @@ public class Board {
 			i--;
 			j++;
 			if (tabela[i][j].color==tabela[com[0]][com[1]].color) {//Achou uma aliada
-				return false;
+				break;
 			}
 			else if(tabela[i][j].color!=-1) {
 				if(tabela[i-1][j+1].color==-1) {
 					return true;
+				}
+				else {
+					break;
 				}
 			}
 		}
@@ -102,11 +115,14 @@ public class Board {
 			i++;
 			j++;
 			if (tabela[i][j].color==tabela[com[0]][com[1]].color) {//Achou uma aliada
-				return false;
+				break;
 			}
 			else if(tabela[i][j].color!=-1) {
 				if(tabela[i+1][j+1].color==-1) {
 					return true;
+				}
+				else {
+					break;
 				}
 			}
 		}
@@ -118,11 +134,14 @@ public class Board {
 			i--;
 			j--;
 			if (tabela[i][j].color==tabela[com[0]][com[1]].color) {//Achou uma aliada
-				return false;
+				break;
 			}
 			else if(tabela[i][j].color!=-1) {
 				if(tabela[i-1][j-1].color==-1) {
 					return true;
+				}
+				else {
+					break;
 				}
 			}
 		}
@@ -133,11 +152,14 @@ public class Board {
 			i++;
 			j--;
 			if (tabela[i][j].color==tabela[com[0]][com[1]].color) {//Achou uma aliada
-				return false;
+				break;
 			}
 			else if(tabela[i][j].color!=-1) {
 				if(tabela[i+1][j-1].color==-1) {
 					return true;
+				}
+				else {
+					break;
 				}
 			}
 		}
@@ -175,8 +197,11 @@ public class Board {
 					}
 					
 				}
-				if(tabela[i][j].gtClass()==2) {//dama
-					//Preciso ver isso
+				if(tabela[i][j].gtClass()==2) {//dama 
+					int[]coords = {i,j,0,0};
+					if(capDama(coords)) {
+						return true;
+					}
 				}
 			}
 		}
@@ -189,13 +214,14 @@ public class Board {
 				int yEntre= (com[1]>com[3])?com[1]-1:com[3]-1;
 				Piece temp = new Piece(-1);
 				tabela[xEntre][yEntre]= temp;
+				tabela[com[2]][com[3]]=tabela[com[0]][com[1]];
 				
 			}
 			if(com[2] == 0 && tabela[com[0]][com[1]].color==0) {//se houve promocao para dama branca
 				Dama temp3 = new Dama(0);
 				tabela[com[2]][com[3]]=temp3;
 			}
-			if(com[2] == 7 && tabela[com[0]][com[1]].color==1) {//se houve promocao para dama preta
+			else if(com[2] == 7 && tabela[com[0]][com[1]].color==1) {//se houve promocao para dama preta
 				Dama temp4 = new Dama(1);
 				tabela[com[2]][com[3]]=temp4;
 			}

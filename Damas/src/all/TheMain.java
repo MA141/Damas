@@ -1,7 +1,5 @@
 package all;
 
-import java.util.Arrays;
-
 public class TheMain {
 
 	public static void main(String[] args) {
@@ -16,9 +14,9 @@ public class TheMain {
 		Converter ini = new Converter();//apenas para incializar um objeto da classe
 		int [][] coords = ini.conv(commands);
 		
-		System.out.println(Arrays.deepToString(coords));
 		
 		moveTudo(coords,tab);
+
 	}
 	
 	static void moveTudo(int[][] com,Board tab){ //Eh melhor verificar os turnos aqui..
