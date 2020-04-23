@@ -7,7 +7,7 @@ public class Piece {
 		this.color=color;
 	}
 	
-	int verifComp(int[] com) {
+	int verifComp(int[] com, Board tab) {
 		return 0;
 	}
 	

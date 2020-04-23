@@ -10,7 +10,7 @@ public class Comum extends Piece{
 		return 1;
 	}
 	
-	int verifComp(int[] com) { //Verifica se o movimento é compativel;//0=mov. invalido 1=mov normal 2= mov captura
+	int verifComp(int[] com, Board tab) { //Verifica se o movimento é compativel;//0=mov. invalido 1=mov normal 2= mov captura
 		//Se dist ==1, ver se vai para frente
 		if(com[1]==com[3] || com[0]==com[2]) {//0=1;1==0;3==3;4==2
 			return 0;

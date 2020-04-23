@@ -63,10 +63,91 @@ public class Board {
 			}
 		}
 		else {//se eh uma dama
+			if(capture==0 || tabela[com[2]][com[3]].color!=-1){///se o movimento nao for possivel ou se a casa alvo nao estiver livre
+				return false;
+			}
+			if(capture==1) {
+				if (capDama(com)==true) { //Ela deixou de capturar
+					return false;
+				}
+				else return true; //Ela nao deixou de capturar
+				
+			}
 			
 		}
 		return false;//o programa nunca chega aqui, mas precisa desse return pra compilar
 	}
+	
+	boolean capDama(int[] com) { //verifica se a peça dama nao deixou de capturar nada -> true==deixou de capturar;
+		
+		///Andando para NE->
+		int i=com[0], j=com[1];
+		while (i>1 && j<6) {
+			i--;
+			j++;
+			if (tabela[i][j].color==tabela[com[0]][com[1]].color) {//Achou uma aliada
+				return false;
+			}
+			else if(tabela[i][j].color!=-1) {
+				if(tabela[i-1][j+1].color==-1) {
+					return true;
+				}
+			}
+		}
+		
+		//Andando para SE->
+		i=com[0];
+		j=com[1];
+		while(i<6 && j<6) {
+			i++;
+			j++;
+			if (tabela[i][j].color==tabela[com[0]][com[1]].color) {//Achou uma aliada
+				return false;
+			}
+			else if(tabela[i][j].color!=-1) {
+				if(tabela[i+1][j+1].color==-1) {
+					return true;
+				}
+			}
+		}
+		
+		//Andando para NW;
+		i=com[0];
+		j=com[1];
+		while(i>1 && j>1) {
+			i--;
+			j--;
+			if (tabela[i][j].color==tabela[com[0]][com[1]].color) {//Achou uma aliada
+				return false;
+			}
+			else if(tabela[i][j].color!=-1) {
+				if(tabela[i-1][j-1].color==-1) {
+					return true;
+				}
+			}
+		}
+		
+		i=com[0];
+		j=com[1];
+		while(i<6 && j>1) {
+			i++;
+			j--;
+			if (tabela[i][j].color==tabela[com[0]][com[1]].color) {//Achou uma aliada
+				return false;
+			}
+			else if(tabela[i][j].color!=-1) {
+				if(tabela[i+1][j-1].color==-1) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+		
+		
+		
+	}
+	
 	boolean temCaptura() {
 		for (int i=0; i<8; i++){
 			for(int j=0; j<8; j++) {
@@ -95,32 +176,38 @@ public class Board {
 					
 				}
 				if(tabela[i][j].gtClass()==2) {//dama
-					//checa se tem alguma captura pra dama
+					//Preciso ver isso
 				}
 			}
 		}
 		return false;
 	}
-	void move(int[] com, int capture){//realiza a jogada
-		if(capture==2) {//se eh uma captura, eh retirada a peca entre a casa de saida e a casa alvo
-			int xEntre= (com[0]>com[2])?com[0]-1:com[2]-1;
-			int yEntre= (com[1]>com[3])?com[1]-1:com[3]-1;
-			Piece temp = new Piece(-1);
-			tabela[xEntre][yEntre]= temp;
-			
-		}
-		if(com[2] == 0 && tabela[com[0]][com[1]].color==0) {//se houve promocao para dama branca
-			Dama temp3 = new Dama(0);
-			tabela[com[2]][com[3]]=temp3;
-		}
-		if(com[2] == 7 && tabela[com[0]][com[1]].color==1) {//se houve promocao para dama preta
-			Dama temp4 = new Dama(1);
-			tabela[com[2]][com[3]]=temp4;
-		}
-		else {//se foi um movimento normal
+	void move(int[] com, int capture){//realiza a jogada ; 
+		if (tabela[com[0]][com[1]].gtClass()==1) {
+			if(capture==2) {//se eh uma captura, eh retirada a peca entre a casa de saida e a casa alvo
+				int xEntre= (com[0]>com[2])?com[0]-1:com[2]-1;
+				int yEntre= (com[1]>com[3])?com[1]-1:com[3]-1;
+				Piece temp = new Piece(-1);
+				tabela[xEntre][yEntre]= temp;
+				
+			}
+			if(com[2] == 0 && tabela[com[0]][com[1]].color==0) {//se houve promocao para dama branca
+				Dama temp3 = new Dama(0);
+				tabela[com[2]][com[3]]=temp3;
+			}
+			if(com[2] == 7 && tabela[com[0]][com[1]].color==1) {//se houve promocao para dama preta
+				Dama temp4 = new Dama(1);
+				tabela[com[2]][com[3]]=temp4;
+			}
+			else {//se foi um movimento normal
+				tabela[com[2]][com[3]]=tabela[com[0]][com[1]];
+			}
+			Piece temp2 = new Piece(-1);
+			tabela[com[0]][com[1]]=temp2;// para todos os casos, a casa de saida vira uma casa vazia
+		} 
+		else { //Se for uma dama, apenas move a peca de lugar, pois a captura, caso haja, tera sido feita na verificacao;
 			tabela[com[2]][com[3]]=tabela[com[0]][com[1]];
+			tabela[com[0]][com[1]]=new Piece(-1);
 		}
-		Piece temp2 = new Piece(-1);
-		tabela[com[0]][com[1]]=temp2;// para todos os casos, a casa de saida vira uma casa vazia
 	}
 }
