@@ -9,7 +9,7 @@ public class TheMain {
 		tab.show();
 		
 		CSVReader test = new CSVReader();
-		test.setDataSource("C:\\Users\\Artur\\Desktop\\UNICAMP\\2020-1\\MC322\\lab6\\Damas\\testeDamas1.csv");
+		test.setDataSource("__XXXXX__\\Damas\\testeDamas1.csv");
 		String commands[] = test.requestCommands();
 		Converter ini = new Converter();//apenas para incializar um objeto da classe
 		int [][] coords = ini.conv(commands);
